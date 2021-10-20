@@ -1,7 +1,10 @@
-(ns dividends.config
+(ns dividends.services.config
   (:require [taoensso.timbre :as log]
             [aero.core :as aero]
-            [integrant.core :as ig]))
+            [integrant.core :as ig]
+            dividends.services.db
+            dividends.services.http
+            dividends.services.router))
 
 (defmethod aero/reader 'ig/ref
   [_ _ value]

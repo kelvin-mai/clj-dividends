@@ -4,8 +4,7 @@
             [integrant.repl.state :as state]
             [nrepl.server]
             [cider.nrepl :refer [cider-nrepl-handler]]
-            [dividends.config :as config]
-            dividends.core))
+            [dividends.services.config :as config]))
 
 (tools-ns/set-refresh-dirs "dev" "server/src")
 

@@ -7,6 +7,6 @@
                         :password #or [#env POSTGRES_PASSWORD "postgres"]}
                  :http-port #or [#env PORT 8080]}
  :postgres/db {:config #ig/ref :system/config}
- :reitit/routes {:config #ig/ref :system/config}
- :http/server {:router #ig/ref :reitit/routes
-               :config #ig/ref :system/config}}
+ :reitit/routes {:db #ig/ref :postgres/db}
+ :http/server {:config #ig/ref :system/config
+               :router #ig/ref :reitit/routes}}

@@ -1,10 +1,10 @@
-(ns dividends.router
+(ns dividends.router.routes
   (:require [taoensso.timbre :as log]
-            [integrant.core :as ig]
             [reitit.ring :as ring]
             [muuntaja.core :as m]
             [reitit.ring.middleware.exception :as exception]
-            [reitit.ring.middleware.muuntaja :as muuntaja]))
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [dividends.router.middleware :as mw]))
 
 (def health-route
   ["/health-check"
@@ -13,8 +13,8 @@
            {:status 200
             :body {:ping "pong"}})}])
 
-(defmethod ig/init-key :reitit/routes
-  [_ config]
+(defn create-router
+  [config]
   (log/info "initializing routes")
   (ring/ring-handler
     (ring/router
@@ -22,6 +22,7 @@
         health-route]]
       {:data {:muuntaja m/instance
               :middleware [exception/exception-middleware
-                           muuntaja/format-middleware]}})
+                           muuntaja/format-middleware
+                           mw/wrap-env]}})
     (ring/routes
       (ring/redirect-trailing-slash-handler))))

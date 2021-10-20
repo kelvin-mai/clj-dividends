@@ -1,8 +1,5 @@
 (ns dividends.core
-  (:require [dividends.config :as config]
-            dividends.db
-            dividends.router
-            dividends.server))
+  (:require [dividends.services.config :as config]))
 
 (defn -main []
   (config/read-config :prod))

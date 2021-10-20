@@ -1,7 +1,8 @@
-(ns dividends.server
+(ns dividends.services.http
   (:require [taoensso.timbre :as log]
             [integrant.core :as ig]
-            [org.httpkit.server :as http]))
+            [org.httpkit.server :as http]
+            [dividends.router.routes :as routes]))
 
 (defmethod ig/init-key :http/server
   [_ {:keys [router config]}]

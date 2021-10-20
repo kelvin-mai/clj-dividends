@@ -1,4 +1,4 @@
-(ns dividends.db
+(ns dividends.services.db
   (:require [taoensso.timbre :as log]
             [integrant.core :as ig]
             [next.jdbc :as jdbc]
