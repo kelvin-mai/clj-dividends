@@ -1,5 +1,4 @@
 {:paths ["server/src"
-         "dev"
          "resources"]
  :deps {org.clojure/clojure {:mvn/version "1.10.3"}
         ;; config
@@ -17,9 +16,11 @@
         ;; http server
         http-kit/http-kit {:mvn/version "2.5.3"}}
  :aliases {:run-server {:main-opts ["-m" "dividends.core"]}
-           :client {:extra-paths ["client/src"]
+           :client {:extra-paths ["client/src"
+                                  "client/test"]
                     :extra-deps {org.clojure/clojurescript {:mvn/version "1.10.879"}
                                  thheller/shadow-cljs {:mvn/version "2.15.12"}}}
-           :dev {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0-SNAPSHOT"}
+           :dev {:extra-paths ["dev"]
+                 :extra-deps {nrepl/nrepl {:mvn/version "0.9.0-SNAPSHOT"}
                               cider/cider-nrepl {:mvn/version "0.27.0-SNAPSHOT"}}
                  :exec-fn user/start-dev}}}

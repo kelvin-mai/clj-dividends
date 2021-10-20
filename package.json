@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "watch": "shadow-cljs watch app",
+    "watch": "shadow-cljs watch app test",
     "build": "shadow-cljs release app",
     "start": "npm run watch"
   },

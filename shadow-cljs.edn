@@ -6,4 +6,10 @@
                 :modules {:main {:init-fn dividends.core/init}}
                 :devtools {:after-load dividends.core/reload
                            :http-root "resources/public"
-                           :http-port 8000}}}}
+                           :http-port 8000}}
+          :test {:target :browser-test
+                 :ns-regexp "-test$"
+                 :runner-dir shadow.test.browser
+                 :test-dir "resources/test-output"
+                 :devtools {:http-root "resources/test-output"
+                            :http-port 8001}}}}
