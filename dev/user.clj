@@ -35,4 +35,8 @@
   (restart)
   state/system
   ;
+  (dividends.utils.query/db-query! db {:select [:*]
+                   :from [:portfolio]})
+  (router {:request-method :get
+           :uri "/api/portfolio"})
   )

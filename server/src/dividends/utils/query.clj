@@ -1,4 +1,4 @@
-(ns dividends.utils.db
+(ns dividends.utils.query
   (:require [next.jdbc :as jdbc]
             [honeysql.core :as sql]))
 

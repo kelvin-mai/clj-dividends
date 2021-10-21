@@ -1,9 +1,21 @@
 (ns dividends.services.router
   (:require [taoensso.timbre :as log]
             [integrant.core :as ig]
-            [dividends.router.routes :refer [create-router]]))
+            [reitit.ring :as ring]
+            [muuntaja.core :as m]
+            [reitit.coercion.spec :refer [coercion]]
+            [dividends.router.routes :refer [api-routes]]
+            [dividends.router.middleware :refer [global-middleware]]))
 
 (defmethod ig/init-key :reitit/routes
-  [_ config]
+  [_ {:keys [db]}]
   (log/info "initializing routes")
-  (create-router nil))
+  (ring/ring-handler
+   (ring/router
+    api-routes
+    {:data {:env {:db db}
+            :coercion coercion
+            :muuntaja m/instance
+            :middleware global-middleware}})
+   (ring/routes
+    (ring/redirect-trailing-slash-handler))))
