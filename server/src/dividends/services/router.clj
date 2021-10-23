@@ -18,4 +18,5 @@
             :muuntaja m/instance
             :middleware global-middleware}})
    (ring/routes
-    (ring/redirect-trailing-slash-handler))))
+    (ring/redirect-trailing-slash-handler)
+    (ring/create-default-handler))))

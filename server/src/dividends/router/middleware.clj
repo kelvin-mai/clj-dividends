@@ -1,7 +1,7 @@
 (ns dividends.router.middleware
   (:require [reitit.ring.coercion :as coercion]
-            [reitit.ring.middleware.exception :as exception]
-            [reitit.ring.middleware.muuntaja :as muuntaja]))
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [dividends.router.exception :as exception]))
 
 (def wrap-env
   {:name ::env
@@ -12,8 +12,8 @@
          (handler (assoc request :env env)))))})
 
 (def global-middleware
-  [exception/exception-middleware
-   muuntaja/format-middleware
+  [muuntaja/format-middleware
+   exception/exception-middleware
    coercion/coerce-request-middleware
    coercion/coerce-response-middleware
    wrap-env])

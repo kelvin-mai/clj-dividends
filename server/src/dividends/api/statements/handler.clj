@@ -1,5 +1,5 @@
-(ns dividends.api.holdings.handler
-  (:require [dividends.api.holdings.db :as db]))
+(ns dividends.api.statements.handler 
+  (:require [dividends.api.statements.db :as db]))
 
 (defn handle-get-all [{:keys [env parameters]}]
   (let [{:keys [db]} env
