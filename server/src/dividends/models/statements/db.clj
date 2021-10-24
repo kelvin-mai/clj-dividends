@@ -1,10 +1,10 @@
-(ns dividends.api.statements.db
+(ns dividends.models.statements.db
   (:require [dividends.utils.query :as q]))
 
 (defn get-all-portfolio-id [db portfolio-id]
   (q/db-query! db {:select [:*]
                    :from [:statements]
-                   :where [:= :portfolio_id portfolio-id]}))
+                   :where [:= :portfolio-id portfolio-id]}))
 
 (defn create [db data]
   (q/db-query-one! db {:insert-into :statements

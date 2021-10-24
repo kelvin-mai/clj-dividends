@@ -1,4 +1,5 @@
 {:paths ["server/src"
+         "shared/src"
          "resources"]
  :deps {org.clojure/clojure {:mvn/version "1.10.3"}
         ;; config
@@ -21,10 +22,12 @@
                                   "client/test"]
                     :extra-deps {org.clojure/clojurescript {:mvn/version "1.10.879"}
                                  thheller/shadow-cljs {:mvn/version "2.15.12"}}}
-           :dev {:extra-paths ["dev"]
+           :dev {:extra-paths ["dev"
+                               "server/test"]
                  :extra-deps {nrepl/nrepl {:mvn/version "0.9.0-SNAPSHOT"}
                               cider/cider-nrepl {:mvn/version "0.27.0-SNAPSHOT"}}
                  ; :exec-fn user/start-dev
                  :main-opts ["-m" "nrepl.cmdline"
                       "--middleware" "[cider.nrepl/cider-middleware]"
-                      "--interactive"]}}}
+                      "--interactive"]
+                 }}}

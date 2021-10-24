@@ -1,4 +1,4 @@
-(ns dividends.api.portfolios.db
+(ns dividends.models.portfolios.db
   (:require [dividends.utils.query :as q]))
 
 (defn get-all [db]

@@ -10,14 +10,15 @@ create table holdings (
   symbol text primary key not null,
   shares decimal not null,
   price decimal not null,
-  constraint fk_portfolio foreign key(portfolio_id) references portfolios(id)
+  constraint fk_portfolio foreign key(portfolio_id) references portfolios(id),
+  unique(portfolio_id, symbol)
 );
 
 create table statements (
   id uuid not null primary key default uuid_generate_v4(),
   portfolio_id uuid not null,
   balance decimal not null,
-  income decimal not null,
+  dividends decimal not null,
   statement_date date not null,
   constraint fk_portfolio foreign key(portfolio_id) references portfolios(id)
 );

@@ -1,7 +1,7 @@
-(ns dividends.api.portfolios.router
-  (:require [dividends.api.portfolios.handler :as portfolios]
-            [dividends.api.statements.handler :as statements]
-            [dividends.api.holdings.handler :as holdings]))
+(ns dividends.api.portfolios
+  (:require [dividends.models.portfolios.handler :as portfolios]
+            [dividends.models.holdings.handler :as holdings]
+            [dividends.models.statements.handler :as statements]))
 
 (def routes
   ["/portfolios"

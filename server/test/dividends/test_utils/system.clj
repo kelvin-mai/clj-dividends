@@ -1,7 +1,6 @@
-(ns dividends.test-utils
+(ns dividends.test-utils.system
   (:require [integrant.core :as ig]
-            [dividends.config :as config]
-            dividends.core))
+            [dividends.services.config :as config]))
 
 (def test-system (atom nil))
 

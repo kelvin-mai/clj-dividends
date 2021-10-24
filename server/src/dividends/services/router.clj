@@ -4,7 +4,7 @@
             [reitit.ring :as ring]
             [muuntaja.core :as m]
             [reitit.coercion.spec :refer [coercion]]
-            [dividends.router.routes :refer [api-routes]]
+            [dividends.api.core :as api]
             [dividends.router.middleware :refer [global-middleware]]))
 
 (defmethod ig/init-key :reitit/routes
@@ -12,7 +12,7 @@
   (log/info "initializing routes")
   (ring/ring-handler
    (ring/router
-    api-routes
+    api/routes
     {:data {:env {:db db}
             :coercion coercion
             :muuntaja m/instance
