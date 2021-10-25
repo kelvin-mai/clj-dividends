@@ -1,20 +1,39 @@
 (ns dividends.router.exception
   (:require [taoensso.timbre :as log]
+            [reitit.coercion :as coercion]
             [reitit.ring.middleware.exception :as exception]))
 
-(defn handle-exception [message exception request]
-  {:status 500
-   :body {:success false
-          :message message
-          :exception (.getClass exception)
-          :data (ex-data exception)
-          :uri (:uri request)}})
+(defn exception-response
+  [status message exception request]
+  {:status status
+   :body (merge {:success false
+                 :message message
+                 :uri (:uri request)}
+                (when exception
+                  {:exception (.getClass exception)
+                   :data (ex-data exception)}))})
+
+(defn handle-exception [status message]
+  (fn
+    ([request]
+     (exception-response status message nil request))
+    ([exception request]
+     (exception-response status message exception request))))
+
+(defn handle-coercion-exception [status message]
+  (fn [exception request]
+    (exception-response status
+                        message
+                        (coercion/encode-error (ex-data exception))
+                        request)))
 
 (def exception-middleware
   (exception/create-exception-middleware
-    (merge
-      exception/default-handlers
-      {::exception/default (partial handle-exception "default")
-       ::exception/wrap (fn [handler e request]
-                          (log/error e (:uri request))
-                          (handler e request))})))
+   {::exception/default (handle-exception 500 "Internal server error")
+    :muuntaja/decode (handle-exception 400 "Malformed request")
+    ::coercion/request-coercion (handle-coercion-exception 400 "Malformed request")
+    ::coercion/response-coercion (handle-coercion-exception 500 "Malformed response")
+    java.sql.SQLException (handle-exception 500 "Database exception")
+    ::exception/wrap (fn [handler e request]
+                       (log/error e (:uri request))
+                       (handler e request))}))
